@@ -16,23 +16,22 @@ public:
         vector<vector<int>>ans;
         if(!root) return ans;
         q.push(root);
-        q.push(NULL);
-         vector<int>v;
+        //q.push(NULL);
+        vector<int>v;
+        int cnt = 0;
         while(!q.empty()){
-           
-            TreeNode* t = q.front();
-            q.pop();
-            if(t==NULL){
-                ans.push_back(v);
-                if(q.size()>0) q.push(NULL);
-                v.clear();
-            }
-            else{
+           cnt = q.size();
+            //TreeNode* t = q.front();
+           // q.pop();
+            for(int i=1; i<=cnt; i++){
+                TreeNode* t = q.front();
+                q.pop();
                 v.push_back(t->val);
                 if(t->left) q.push(t->left);
                 if(t->right) q.push(t->right);
-                
             }
+            ans.push_back(v);
+            v.clear();
         }
         return ans;
     }
