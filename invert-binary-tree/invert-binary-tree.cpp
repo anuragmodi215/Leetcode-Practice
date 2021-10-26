@@ -10,17 +10,16 @@
  * };
  */
 class Solution {
-    void helper(TreeNode *&root){
-        if(!root) return;
+public:
+    void helper(TreeNode* root){
+        if(!root)return;
         helper(root->left);
         helper(root->right);
         
-        TreeNode *  t = root->left;
-        root->left = root->right;
-        root->right = t;
-        return;
+        TreeNode* t=root->left;
+        root->left=root->right;
+        root->right=t;
     }
-public:
     TreeNode* invertTree(TreeNode* root) {
         helper(root);
         return root;
