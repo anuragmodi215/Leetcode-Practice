@@ -9,14 +9,13 @@
  */
 class Solution {
 public:
-    void markParents(TreeNode* root, unordered_map<TreeNode*,TreeNode*>&parentTrack, TreeNode* target){
+    void parents(TreeNode* root, unordered_map<TreeNode*,TreeNode*>&parentTrack){
         queue<TreeNode*>q;
         q.push(root);
         while(!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
+            TreeNode* node=q.front(); q.pop();
             if(node->left){
-                parentTrack[node->left] = node;
+                parentTrack[node->left]=node;
                 q.push(node->left);
             }
             if(node->right){
@@ -25,24 +24,21 @@ public:
             }
         }
     }
+                 
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        cout<<1;
-        unordered_map<TreeNode*, TreeNode*> parentTrack;
-        markParents(root,parentTrack,target);
-        cout<<1;
-        unordered_map<TreeNode*, bool> visited;
+        unordered_map<TreeNode*,TreeNode*>parentTrack;
+        parents(root,parentTrack);
         queue<TreeNode*>q;
         q.push(target);
-        visited[target] = true;
+        unordered_map<TreeNode*,bool> visited;
+        visited[target]=true;
         int curr_lv=0;
-        
         while(!q.empty()){
             int size=q.size();
             if(curr_lv==k) break;
             else curr_lv++;
             for(int i=0; i<size; i++){
-                TreeNode* node = q.front(); q.pop();
-                
+                TreeNode* node=q.front(); q.pop();
                 if(node->left and !visited[node->left]){
                     q.push(node->left);
                     visited[node->left]=true;
@@ -59,25 +55,58 @@ public:
         }
         vector<int>ans;
         while(!q.empty()){
-            TreeNode* node=q.front();
+            TreeNode* t=q.front();
             q.pop();
-            ans.push_back(node->val);
+            ans.push_back(t->val);
         }
         return ans;
     }
 };
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
