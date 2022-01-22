@@ -20,8 +20,8 @@ class Solution{
       int length_215,maxi_215;
       length_215=maxi_215=1;
       //cout<<maxi_215;
-      for(auto i:mp_215){
-          int num_215=i.first;
+      for(int i=0; i<n; i++){
+          int num_215=arr[i];
           if(mp_215.find(num_215-1)!=mp_215.end()) continue;
           
           else{
