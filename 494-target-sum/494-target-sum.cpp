@@ -27,9 +27,9 @@ public:
         for(auto i:nums) arr_sum+=i;
         int sumi=(arr_sum+target)/2;
         
-        if(nums.size()==1){
-            if(nums[0]==abs(target)) return 1;
-        }
+        // if(nums.size()==1){
+        //     if(nums[0]==abs(target)) return 1;
+        // }
         if(arr_sum<abs(target) or (arr_sum+target)%2==1) return 0;
         return helper(nums,nums.size(),sumi);
     }
