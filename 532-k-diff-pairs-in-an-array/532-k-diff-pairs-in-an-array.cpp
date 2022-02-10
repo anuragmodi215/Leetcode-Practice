@@ -8,7 +8,7 @@ public:
         int cnt=0;
         for(auto &i:mp){
             if(k==0){
-                if(i.second>=2) cnt++;
+                if(i.second>1) cnt++;
             }
             else{
                 if(mp.find(i.first-k)!=mp.end()) cnt++;
