@@ -1,13 +1,15 @@
 class Solution {
 public:
-    
     int fib(int n) {
-        vector<int>dp(n+1,-1);
-        dp[0]=0;
-        if(n>0) dp[1]=1;
+        if(n==0) return 0;
+        vector<int>v(n+1);
+        v[0]=0;
+        v[1]=1;
+        if(n<=1) return v[n];
+        
         for(int i=2; i<n+1; i++){
-            dp[i]=dp[i-1]+dp[i-2];
+            v[i]=v[i-1]+v[i-2];
         }
-        return dp[n];
+        return v[n];
     }
 };
