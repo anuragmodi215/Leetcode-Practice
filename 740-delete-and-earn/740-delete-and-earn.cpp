@@ -13,6 +13,7 @@ public:
         dp[2]=max(freq[1],freq[2]*2);
         for(int i=3; i<10005; i++){
             dp[i]=max(dp[i-1],(freq[i]*i+dp[i-2]));
+            if(i==maxi) return dp[maxi];
         }
         return dp[maxi];
     }
