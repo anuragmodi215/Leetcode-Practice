@@ -18,14 +18,14 @@ public:
         bool containsOnlyZeros=true;;
         string ans="";
         while(!st.empty()){
-            ans+=st.top();
+            ans=st.top()+ans;
             if(st.top()!='0'){
                 containsOnlyZeros=false;
             }
             st.pop();
         }
         if(containsOnlyZeros) return "0";
-        reverse(ans.begin(),ans.end());
+        //reverse(ans.begin(),ans.end());
         int i;
         int ansLen=ans.size();
         for(i=0; i<ansLen; i++){
