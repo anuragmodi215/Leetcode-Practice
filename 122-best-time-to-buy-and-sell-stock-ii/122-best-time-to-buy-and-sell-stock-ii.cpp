@@ -2,7 +2,6 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int strt=0;
-        int end=0;
         int n=prices.size();
         int legProfit=0;
         int MTM=0;
@@ -11,7 +10,6 @@ public:
             if(prices[i]<=prices[i-1])
             {
                 strt=i;
-                //i++;
             }
             else if(prices[i]>prices[i-1])
             {
@@ -22,11 +20,8 @@ public:
                     increment=1;
                 }
                 
-               // cout<<i;
-              
-                //legProfit=prices[i]-prices[strt];
                 MTM+=legProfit;
-                cout<<legProfit;
+                //cout<<legProfit;
                 if(increment) i--;
                 increment=0;
             }
