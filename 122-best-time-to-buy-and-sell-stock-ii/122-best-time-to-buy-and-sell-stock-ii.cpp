@@ -1,32 +1,13 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int strt=0;
-        int n=prices.size();
-        int legProfit=0;
-        int MTM=0;
-        bool increment = 0;
+       int profit=0;
+       int n=prices.size();
         for(int i=1; i<n; i++){
-            if(prices[i]<=prices[i-1])
-            {
-                strt=i;
+            if(prices[i]>prices[i-1]){
+                profit+=prices[i]-prices[i-1];
             }
-            else if(prices[i]>prices[i-1])
-            {
-                while(i<n and prices[i]>prices[i-1]) 
-                {
-                    legProfit=prices[i]-prices[strt];
-                     i++;
-                    increment=1;
-                }
-                
-                MTM+=legProfit;
-                //cout<<legProfit;
-                if(increment) i--;
-                increment=0;
-            }
-            
         }
-        return MTM;
+        return profit;
     }
 };
