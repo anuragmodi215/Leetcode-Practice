@@ -15,7 +15,7 @@ public:
         return ans = max(ans1,ans2);
     }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>>dp(prices.size()+1,vector<int>(2,-1));
+        vector<vector<int>>dp(prices.size(),vector<int>(2,-1));
         
         return helper(prices,prices.size(),0,true,dp);
         
