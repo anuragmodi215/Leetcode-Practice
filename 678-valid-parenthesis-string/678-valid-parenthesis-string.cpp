@@ -18,20 +18,14 @@ public:
             res = helper(s,n,strt+1,cnt-1,dp);
         }
         else{
-            res = helper(s,n,strt+1,cnt+1, dp) or helper(s,n,strt+1,cnt-1, dp) or helper(s,n,strt+1,cnt, dp);;
+            res = helper(s,n,strt+1,cnt+1, dp) or helper(s,n,strt+1,cnt-1, dp) or helper(s,n,strt+1,cnt, dp);
         }
         return dp[strt][y] = res;
     }
     bool checkValidString(string s) {
         
-        int n=s.size();
-        int cnt=0;
-        //  for(int i=0; i<n; i++){
-        //      if(s[i]=='*') cnt++;
-        //  }
-        // if(cnt==n) return true;
-        
-        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        int n=s.size();  
+        vector<vector<int>>dp(n+1,vector<int>(n,-1));
         int x = helper(s,n,0,0,dp);
         if(x==1) return true;
         else return false;
