@@ -10,50 +10,22 @@
  */
 class Solution {
 public:
-    ListNode* Reverse(ListNode*curr,ListNode*prev,ListNode*next){
-        while(curr){
-            next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr=next;
-        }
-        return prev;
-    }
-    int lengthOfLinkedList(ListNode* head){
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(!head or !head->next or k==0) return head;
+        
         ListNode* ptr = head;
-        int n = 0;
-        while(ptr){
+        int n=1;
+        while(ptr->next){
             n++;
             ptr=ptr->next;
         }
-        return n;
-    }
-    ListNode* rotateRight(ListNode* head, int k) {
-        if(!head or !head->next) return head;
-        int n = lengthOfLinkedList(head);
+        ptr->next=head;
         k=k%n;
-        if(n==k or k==0) return head;
-        ListNode* dummy = Reverse(head,NULL,NULL);
-        ListNode* ptr = dummy;
-        
-        
-        for(int i=1; i<k; i++){
-           ptr=ptr->next; 
-        }
-        
-        ListNode* head1 = dummy;
-        ListNode* head2 = ptr->next;
-        cout<<head2->val;
-        ptr->next = NULL;
-        
-        ListNode* first = Reverse(head1,NULL,NULL);
-        ListNode* second = Reverse(head2,NULL,NULL);
-        
-        ptr = first;
-        while(ptr->next){
+        for(int i=1; i<=n-k; i++){
             ptr=ptr->next;
         }
-        ptr->next = second;
-        return first;
+        head = ptr->next;
+        ptr->next = NULL;
+        return head;
     }
 };
