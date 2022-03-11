@@ -29,20 +29,18 @@ public:
         return n;
     }
     ListNode* rotateRight(ListNode* head, int k) {
-        if(!head or !head->next or k==0) return head;
+        if(!head or !head->next) return head;
         int n = lengthOfLinkedList(head);
-        
-        if(n==k) return head;
         k=k%n;
-        if(k==0) return head;
+        if(n==k or k==0) return head;
         ListNode* dummy = Reverse(head,NULL,NULL);
         ListNode* ptr = dummy;
         
-        cout<<n<<endl;
         
         for(int i=1; i<k; i++){
            ptr=ptr->next; 
         }
+        
         ListNode* head1 = dummy;
         ListNode* head2 = ptr->next;
         cout<<head2->val;
