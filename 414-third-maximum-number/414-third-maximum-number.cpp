@@ -1,31 +1,26 @@
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        //prioroty_queue<int, vector<int>, greater<int>> pq;
+        long one=LONG_MIN,two=LONG_MIN,three=LONG_MIN;
         int n=nums.size();
-        set<int>set;
-        for(int i=0; i<n; i++){
-            set.insert(nums[i]);
+        for(auto &i:nums){
+            if(one==i or two ==i or three ==i) continue;
+            else{
+                if(i>one){
+                    three=two;
+                    two=one;
+                    one=i;
+                }
+                else if(i>two){
+                    three = two;
+                    two = i;
+                }
+                else if(i>three){
+                    three=i;
+                }
+            }
         }
-        int ans=0;
-        if(set.size()<3){
-            return *max_element(set.begin(),set.end());
-        }
-        else if(set.size()==3){
-            return *min_element(set.begin(),set.end());
-        }
-        else{
-           int cnt=0;
-           int k=set.size()-3;
-            ans=0;
-           for(auto i: set){
-               if(cnt<=k){
-                   ans = i;
-                   cnt++;
-               }
-           }
-           
-        }
-        return ans;
+        if(three==LONG_MIN) return one;
+        return three;
     }
 };
