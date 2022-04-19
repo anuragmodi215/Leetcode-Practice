@@ -11,12 +11,13 @@
  */
 class Solution {
 public:
-    TreeNode* prev;
-    TreeNode* first;
     TreeNode* last;
+    TreeNode* first;
     TreeNode* middle;
+    TreeNode* prev;
     void check(TreeNode* root){
         if(!root) return;
+        
         check(root->left);
         
         if(prev and prev->val>root->val){
@@ -28,25 +29,19 @@ public:
                 last = root;
             }
         }
+        
         prev = root;
+        
         check(root->right);
     }
     void recoverTree(TreeNode* root) {
-        //prev=new TreeNode(INT_MIN);
-        prev = first=last=middle=NULL;
+        last = first = middle = prev = NULL;
         check(root);
-        if(first and last) swap(first->val,last->val);
+        
+        if(first and last) swap(first->val, last->val);
         else swap(first->val, middle->val);
     }
 };
-
-
-
-
-
-
-
-
 
 
 
