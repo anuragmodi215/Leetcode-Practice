@@ -1,39 +1,41 @@
 class Solution {
 public:
-    void helper(vector<vector<int>>& matrix,vector<pair<int,int>>&zeros,int n, int m){
-        int zerosSize = zeros.size();
-        for(int k=0; k<zerosSize; k++){
-            int row = zeros[k].first;
-            int col = zeros[k].second;
-            
-            int forward = row;
-            int backward = row;
-            
-            while(forward<n or backward>=0){
-                if(forward<n) matrix[forward++][col] = 0;
-                if(backward>=0) matrix[backward--][col] = 0;
-            }
-            
-            forward = col;
-            backward = col;
-            while(forward<m or backward>=0){
-                if(forward<m) matrix[row][forward++] = 0;
-                if(backward>=0) matrix[row][backward--] = 0;
-            }
-        }
-
-    }
     void setZeroes(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
-        vector<pair<int,int>> zeros;
+        
+        bool setFirstRow=false;
+        bool setFirstCol=false;
+        
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(matrix[i][j]==0){
-                    zeros.push_back({i,j});
+                if(i==0) setFirstRow = true;
+                if(j==0) setFirstCol = true;
+                
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
                 }
             }
         }
-        helper(matrix,zeros,n,m);
+        
+        for(int i=1; i<n; i++){
+            for(int j=1; j<m; j++){
+                if(matrix[i][0]==0 or matrix[0][j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+        
+        if(setFirstRow){
+            for(int i=0; i<m; i++){
+                matrix[0][i] = 0;
+            }
+        }
+        if(setFirstCol){
+            for(int i=0; i<n; i++){
+                matrix[i][0] = 0;
+            }
+        }
     }
 };
