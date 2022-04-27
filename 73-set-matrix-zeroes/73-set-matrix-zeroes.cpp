@@ -6,18 +6,33 @@ public:
             int row = zeros[k].first;
             int col = zeros[k].second;
             
-            for(int i=row; i<n; i++){
-                matrix[i][col] = 0;
+            int forward = row;
+            int backward = row;
+            
+            while(forward<n or backward>=0){
+                if(forward<n) matrix[forward++][col] = 0;
+                if(backward>=0) matrix[backward--][col] = 0;
             }
-            for(int i=row; i>=0; i--){
-                matrix[i][col] = 0;
+            
+            forward = col;
+            backward = col;
+            while(forward<m or backward>=0){
+                if(forward<m) matrix[row][forward++] = 0;
+                if(backward>=0) matrix[row][backward--] = 0;
             }
+            
+//             for(int i=row; i<n; i++){
+//                 matrix[i][col] = 0;
+//             }
+//             for(int i=row; i>=0; i--){
+//                 matrix[i][col] = 0;
+//             }
         
-            for(int j=col; j<m; j++)
-                matrix[row][j] = 0;
+//             for(int j=col; j<m; j++)
+//                 matrix[row][j] = 0;
         
-            for(int j=col; j>=0; j--)
-                matrix[row][j] = 0;
+//             for(int j=col; j>=0; j--)
+//                 matrix[row][j] = 0;
         }
 
     }
