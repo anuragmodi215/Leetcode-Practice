@@ -1,21 +1,21 @@
 class Solution {
 public:
     int findLengthOfShortestSubarray(vector<int>& arr) {
-       
-        int r;
+        int right = arr.size()-1;
         int n = arr.size();
-        for(r=n-1; r>=1; r--){
-            if(arr[r]<arr[r-1])break;
+        if(n==1) return 0;
+        for(right=n-1; right>=1; right--){
+            if(arr[right]<arr[right-1])break;
         }
-        int ans = r;
-        for(int i=0; i<n and i<r; i++){
-            if(r==n or arr[i]<=arr[r]){
-                ans = min(ans,(r-i-1));
+        
+        int minLen = right;
+        for(int i=0; i<n and i<right; i++){
+            if(right==n or arr[i]<=arr[right]){
+                minLen = min(minLen, right-i-1);
             }
-            else r++;
-            
+            else right++;
             if(arr[i]>arr[i+1])break;
         }
-        return ans;
+        return minLen;
     }
 };
