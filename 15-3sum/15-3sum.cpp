@@ -20,16 +20,17 @@ public:
                     left++;
                 }
                 else{
-                    ans.push_back({nums[i],nums[left],nums[right]});
-                    while(left<right and nums[left]==nums[left+1]){
+                    vector<int>triplet{nums[i],nums[left],nums[right]};
+                    ans.push_back(triplet);
+                    while(left<right and nums[left]==triplet[1]){
                         left++;
                     }
-                    left++;
-                    while(right>left and nums[right]==nums[right-1]){
+                    //left++;
+                    while(right>left and nums[right]==triplet[2]){
                         right--;
                     }
                     
-                    right--;
+                    //right--;
                 }
             }
         }
