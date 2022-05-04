@@ -1,23 +1,24 @@
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
-        int mini=INT_MAX;
-        int maxi=INT_MIN;
-        int left=-1,right=-1;
-        int n=nums.size();
-        for(int i=0; i<n; i++){
-            maxi = max(nums[i],maxi);
-            if(maxi>nums[i]){
-                right=i;
-            }
+     
+        int n = nums.size();
+        int left=0,right=n-1;
+     
+        while(left+1<n and nums[left]<=nums[left+1])left++;
+        while(right-1>=0 and nums[right]>=nums[right-1])right--;
+        
+        if(left==n-1) return 0;
+        
+        int windowMini=INT_MAX;
+        int windowMaxi=INT_MIN;
+        for(int i=left; i<=right; i++){
+            windowMini=min(nums[i],windowMini);
+            windowMaxi=max(nums[i],windowMaxi);
         }
-        for(int i=n-1; i>=0; i--){
-            mini = min(nums[i],mini);
-            if(mini<nums[i]){
-                left=i;
-            }
-        }
-        if(left==right) return 0;
+        
+        while(left-1>=0 and nums[left-1]>windowMini)left--;
+        while(right+1<n and nums[right+1]<windowMaxi) right++;
         return right-left+1;
     }
 };
