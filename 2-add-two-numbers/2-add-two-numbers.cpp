@@ -11,54 +11,63 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* ptr = l1;
-        ListNode* ptr2=l2;
-        
-        ListNode* temp = new ListNode(-1);
-        ListNode* res=temp;
-        int carry =0;
-        while(ptr and ptr2){
-            ListNode* curr = new ListNode();
-            int a=ptr->val;
-            int b=ptr2->val;
+        ListNode * newHead = new ListNode(-1);
+        ListNode * temp = newHead;
+        ListNode * first = l1;
+        ListNode * second = l2;
+        int carry=0;
+        while(first and second){
+            ListNode * list = new ListNode(0);
+            temp->next = list;
+            int a = first->val;
+            int b = second->val;
             int sum = a+b+carry;
-            
-            curr->val = sum%10;
-            carry =sum/10;
-            
-            res->next = curr;
-            res=res->next;
-            
-            ptr=ptr->next;
-            ptr2 = ptr2->next;
+            carry = sum/10;
+            list->val = sum%10;
+            temp = temp->next;
+            first = first->next;
+            second = second->next;
         }
-        
-        while(ptr){
-            ListNode* curr = new ListNode();
-            int a = ptr->val;
-            int sum=a+carry;
-            curr->val = sum%10;
-            carry=sum/10;
-            res->next = curr;
-            res=res->next;
-            ptr=ptr->next;
+        while(first){
+            ListNode * list = new ListNode(0);
+            temp->next = list;
+            int a = first->val;
+            int sum = a+carry;
+            carry = sum/10;
+            list->val = sum%10;
+            temp = temp->next;
+            first = first->next;
         }
-        
-         while(ptr2){
-            ListNode* curr = new ListNode();
-            int a = ptr2->val;
-            int sum=a+carry;
-            curr->val = sum%10;
-            carry=sum/10;
-            res->next = curr;
-            res=res->next;
-            ptr2=ptr2->next;
+        while(second){
+            ListNode * list = new ListNode(0);
+            temp->next = list;
+            int b = second->val;
+            int sum = b+carry;
+            list->val = sum%10;
+            carry = sum/10;
+            temp=temp->next;
+            second = second->next;
         }
         if(carry){
-            ListNode* curr = new ListNode();
-            curr->val = carry;
-            res->next = curr;
+            ListNode * list = new ListNode(0);
+            temp->next = list;
+            list->val = carry;
         }
-        return temp->next;
+        return newHead->next;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
