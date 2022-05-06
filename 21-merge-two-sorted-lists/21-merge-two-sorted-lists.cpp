@@ -28,15 +28,11 @@ public:
                 second = second->next;
             }
         }
-        while(first){
+        if(first){
             temp->next = first;
-            first=first->next;
-            temp=temp->next;
         }
-        while(second){
+        else if(second){
             temp->next = second;
-            second = second->next;
-            temp = temp->next;
         }
         return newHead->next;
     }
