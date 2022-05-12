@@ -80,25 +80,36 @@ class Solution
     void linkdelete(struct Node  *head, int M, int N)
     {
         //Add code here   
-        struct Node * slow = head;
-        struct Node * fast = head;
+        if(N==0) return;
+        struct Node* ptr1=head;
+        struct Node* ptr2=head->next;
         
-        while(fast and slow){
-            for(int i=1; fast and i<M; i++){
-                fast = fast->next;
+        int m=1;
+        while(ptr2!=NULL){
+            if(m==M){
+                int n=N;
+                while(ptr2 and n!=1){
+                    ptr2=ptr2->next;
+                    n--;
+                }
+                if(ptr2==NULL){
+                    ptr1->next = ptr2;
+                    return;
+                }
+                ptr1->next=ptr2->next;
+                ptr1=ptr2->next;
+                if(ptr1==NULL){
+                    return;
+                }
+                ptr2=ptr1->next;
+                m=1;
             }
-            if(fast==NULL) return;
-            slow = fast;
-            for(int i=1; fast and i<=N; i++){
-                fast=fast->next;
+            
+            else{
+                ptr1=ptr1->next;
+                ptr2=ptr2->next;
+                m++;
             }
-            if(fast==NULL){
-                slow->next = fast;
-                return;
-            }
-            slow->next = fast->next;
-            fast = fast->next;
-            slow = fast;
         }
         return;
     }
