@@ -1,35 +1,28 @@
 class Solution {
 public:
-    int low,length;
-    void helper(string &s, int left, int right, int n){
-        string str;
-        //int len=0;
-        while(left>=0 and right<n){
-            if(s[left]==s[right]){
-                if(right-left+1>length){
-                    low=left;
-                    length=right-left+1;
-                    //len=length;
-                }
-                left--; right++;
+    int strt=0; int length = 0;
+    void expandFromCenter(int i, int j, string &s, int n){
+        int tempLen=0;
+        while(i>=0 and j<n){
+            if(s[i]==s[j]){
+                tempLen = j-i+1;
+                i--;j++;
             }
             else break;
         }
-        cout<<length<<" "<<low<<endl;
-        //cout<<str<<endl;
-        //return str;
-        return;
+         if(tempLen>length){
+             strt=i+1;
+             length = tempLen;
+         }
     }
     string longestPalindrome(string s) {
-        int n=s.size();
-        low=0,length=0;
-        
+        int n = s.size();
+        strt=0;
+        length = 0;
         for(int i=0; i<n; i++){
-         helper(s,i,i,n);
-         helper(s,i,i+1,n);
+            expandFromCenter(i,i,s,n);
+            expandFromCenter(i,i+1,s,n);
         }
-        cout<<length;
-        string ans=s.substr(low,length);
-        return ans;
+        return s.substr(strt,length);
     }
 };
