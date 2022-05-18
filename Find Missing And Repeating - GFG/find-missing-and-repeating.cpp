@@ -6,26 +6,27 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
 public:
-    int *findTwoElement(int *arr, int n) {
+    int *findTwoElement(int *nums, int n) {
         // code here
-        
-        int * ans = new int[2];
+        int *ans = new int[2];
         int i=0;
         while(i<n){
-            if(arr[i] != i+1 and arr[i] == arr[arr[i]-1]){
-                ans[0] = arr[i];
+            if(nums[i]!=i+1 and nums[i]==nums[nums[i]-1]){
+                ans[0] = nums[i];
+                //break;
             }
-            if(arr[i]!=i+1 and arr[i] != arr[arr[i]-1]){
-                swap(arr[i], arr[arr[i]-1]);
+            if(nums[i]!=i+1 and nums[i]!=nums[nums[i]-1]){
+                swap(nums[i],nums[nums[i]-1]);
             }
             else{
-                //ans[0] = arr[i];
                 i++;
             }
         }
+        
         for(int i=0; i<n; i++){
-            if(arr[i] != i+1){
-                ans[1] = i+1;
+            if(nums[i]!=i+1){
+                ans[1]=i+1;
+                break;
             }
         }
         return ans;
