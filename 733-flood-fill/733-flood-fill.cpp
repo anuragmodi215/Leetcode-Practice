@@ -12,10 +12,10 @@ public:
         for(int k=0; k<4; k++){
             int x = dx[k]+i;
             int y = dy[k]+j;
+            image[i][j]=newColor;
             if(isValid(x,y,image,visited,colour,newColor)){
                 visited[x][y]=1;
                 dfs(x,y,image,visited,colour,newColor);
-                image[x][y]=newColor;
             }
         }
     }
@@ -24,7 +24,7 @@ public:
         int m = image[0].size();
         vector<vector<int>>visited(n,vector<int>(m,0));
         dfs(sr,sc,image,visited,image[sr][sc],newColor);
-        image[sr][sc] = newColor;
+        //image[sr][sc] = newColor;
         return image;
     }
 };
