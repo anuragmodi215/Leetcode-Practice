@@ -9,6 +9,7 @@ public:
             freq[s[i]-'a']++;
         }
         int i=0;
+        //this is the place where we are getting our ans i.e i==n
         while(i<n and freq[s[i]-'a']>=k){
             i++;
         }
