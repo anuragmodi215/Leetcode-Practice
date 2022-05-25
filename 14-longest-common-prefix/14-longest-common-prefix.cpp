@@ -12,7 +12,7 @@ public:
                 }
             }
             cout<<j;
-            ans = ans.substr(0,j);
+            ans = v[i].substr(0,j);
             if(ans ==""){
                 return ans;
             }
