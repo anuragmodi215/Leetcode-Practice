@@ -18,7 +18,7 @@ public:
             word+=a;
             cnt++;
         }
-         cout<<word;
+         //cout<<word;
         bool successfullSearch = find(word,b);
         if(!successfullSearch){
             cnt++;
