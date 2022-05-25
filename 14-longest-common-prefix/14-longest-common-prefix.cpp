@@ -1,16 +1,21 @@
 class Solution {
 public:
-    string longestCommonPrefix(vector<string>& str) {
-        int n = str.size();
-        string ans = str[0];
+    string longestCommonPrefix(vector<string>& v) {
+        int n = v.size();
+        string ans = v[0];
         for(int i=1; i<n; i++){
             int j;
-            int len = min(ans.size(), str[i].size());
-            for(j=0; j<len; j++){
-                if(ans[j]!=str[i][j])break;
+            for(j=0; j<v[i].size(); j++){
+                if(ans[j]!=v[i][j]){
+                    cout<<45;
+                    break;
+                }
             }
-            ans = str[i].substr(0,j);
-            if(ans=="") break;
+            cout<<j;
+            ans = ans.substr(0,j);
+            if(ans ==""){
+                return ans;
+            }
         }
         return ans;
     }
