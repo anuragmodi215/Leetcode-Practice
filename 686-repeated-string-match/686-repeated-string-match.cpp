@@ -3,9 +3,24 @@ public:
     bool find(string&word, string&b){
         int len = word.size()-b.size()+1;
         int b_size = b.size();
-        for(int i=0; i<len; i++){
-            if(word.substr(i,b_size)==b){
-                return true;
+        int ind = 0;
+        for(int i=0; i<word.size(); i++){
+            if(word[i]!=b[ind]) continue;
+            else{
+                int j=0;
+                int k=i;
+                while(j<b.size() and k<word.size()){
+                    if(word[k]!=b[j]){
+                        //cout<<j;
+                        break;
+                    }
+                    else{
+                        k++;j++;
+                    }
+                    // cout<<i
+                }
+                
+                if(j==b.size()) return true;
             }
         }
         return false;
