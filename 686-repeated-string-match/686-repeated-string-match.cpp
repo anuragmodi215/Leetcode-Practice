@@ -1,11 +1,10 @@
 class Solution {
 public:
     bool find(string&word, string&b){
-        bool startFound=0;
-        int i=0;
-        int j=0;
-        for(int i=0; i<word.size()-b.size()+1; i++){
-            if(word.substr(i,b.size())==b){
+        int len = word.size()-b.size()+1;
+        int b_size = b.size();
+        for(int i=0; i<len; i++){
+            if(word.substr(i,b_size)==b){
                 return true;
             }
         }
