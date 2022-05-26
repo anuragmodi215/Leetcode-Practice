@@ -10,16 +10,16 @@ public:
         }
         
         for(auto i:mp){
-            pq.push({i.second, i.first});
-            
-            if(pq.size()>k) pq.pop();
+            pq.push({i.second,i.first});
+            if(pq.size()>k){
+                pq.pop();
+            }
         }
-        
+        //vector<int>ans;
         while(!pq.empty()){
             ans.push_back(pq.top().second);
             pq.pop();
         }
-        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
