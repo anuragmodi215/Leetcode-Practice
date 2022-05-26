@@ -24,12 +24,7 @@ public:
         int n = graph.size();
         unordered_map<int,vector<int>>adj;
         vector<int>colour(n,-1);
-        for(int i=0; i<n; i++){
-            // int u = graph[i][0];
-            // int v = graph[i][1];
-            // adj[u].push_back(v);
-            // adj[v].push_back(u);
-        }
+        
         for(int i=0; i<n; i++){
             if(colour[i]==-1){
                 bool x = bfs(i,graph,colour);
