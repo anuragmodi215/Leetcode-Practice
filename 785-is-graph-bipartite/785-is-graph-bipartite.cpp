@@ -1,20 +1,21 @@
 class Solution {
 public:
-    bool bfs(int node,vector<vector<int>>& graph,vector<int>&colour){
+    bool bfs(int node,vector<vector<int>>& graph,vector<int>&colour){ 
         queue<int>q;
         q.push(node);
         colour[node] = 1;
-        
         while(!q.empty()){
             int frontNode = q.front();
             q.pop();
-            for(auto neig: graph[frontNode]){
+            for(auto neig:graph[frontNode]){
                 if(colour[neig]==-1){
                     colour[neig] = 1-colour[frontNode];
                     q.push(neig);
                 }
-                else if(colour[neig] == colour[frontNode]){
-                    return false;
+                else{
+                    if(colour[neig]==colour[frontNode]){
+                        return false;
+                    }
                 }
             }
         }
