@@ -12,6 +12,8 @@ class Solution {
         
         for(auto neig: adj[node]){
             if(!visited[neig]){
+                // visited[neig]=1;
+                // dfsVisited[neig]=1;
                 bool x = dfs(neig,adj,visited,dfsVisited);
                 if(x) return true;
             }
