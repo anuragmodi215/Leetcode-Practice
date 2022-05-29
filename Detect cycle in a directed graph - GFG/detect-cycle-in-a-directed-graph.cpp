@@ -6,29 +6,26 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    bool dfs(int node, vector<int> adj[], unordered_map<int,bool>&visited, 
-    unordered_map<int,bool>&dfsVisited){
+    bool dfs(int node, vector<int>adj[], vector<int>&visited, vector<int>&dfsVisited){
         visited[node]=1;
         dfsVisited[node]=1;
         
-        for(auto neighbour: adj[node]){
-            if(!visited[neighbour]){
-                bool ans = dfs(neighbour,adj,visited,dfsVisited);
-                if(ans) return ans;
+        for(auto neig: adj[node]){
+            if(!visited[neig]){
+                bool x = dfs(neig,adj,visited,dfsVisited);
+                if(x) return true;
             }
-            else{
-                if(dfsVisited[neighbour]){
-                    return true;
-                }
+            else if(dfsVisited[neig]){
+                return true;
             }
         }
-        dfsVisited[node]=false;
+        dfsVisited[node] = false;
         return false;
     }
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        unordered_map<int,bool>visited;
-        unordered_map<int,bool>dfsVisited;
+        vector<int>visited(V+1);
+        vector<int>dfsVisited(V+1);
         for(int i=0; i<V; i++){
             if(!visited[i]){
                 bool ans = dfs(i,adj,visited,dfsVisited);
