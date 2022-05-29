@@ -6,35 +6,37 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    bool dfs(int node, vector<int>adj[], vector<int>&visited, vector<int>&dfsVisited){
-        visited[node]=1;
-        dfsVisited[node]=1;
-        
-        for(auto neig: adj[node]){
-            if(!visited[neig]){
-                // visited[neig]=1;
-                // dfsVisited[neig]=1;
-                bool x = dfs(neig,adj,visited,dfsVisited);
-                if(x) return true;
-            }
-            else if(dfsVisited[neig]){
-                return true;
-            }
-        }
-        dfsVisited[node] = false;
-        return false;
-    }
-    bool isCyclic(int V, vector<int> adj[]) {
+    bool isCyclic(int v, vector<int> adj[]) {
         // code here
-        vector<int>visited(V+1);
-        vector<int>dfsVisited(V+1);
-        for(int i=0; i<V; i++){
-            if(!visited[i]){
-                bool ans = dfs(i,adj,visited,dfsVisited);
-                if(ans)return true;
+        vector<int>indegree(v);
+        vector<int>ans;
+        queue<int>q;
+        for(int i=0; i<v; i++){
+            for(auto it: adj[i]){
+                indegree[it]++;
             }
         }
-        return false;
+        for(int i=0; i<v; i++){
+            if(indegree[i]==0){
+                q.push(i);
+            }
+        }
+        while(!q.empty()){
+            int frontNode = q.front();
+            ans.push_back(frontNode);
+            q.pop();
+            for(auto neig:adj[frontNode]){
+                indegree[neig]--;
+                if(indegree[neig]==0){
+                    q.push(neig);
+                }
+            }
+        }
+        
+        if(ans.size()==v){
+            return false;
+        }
+        return true;
     }
 };
 
