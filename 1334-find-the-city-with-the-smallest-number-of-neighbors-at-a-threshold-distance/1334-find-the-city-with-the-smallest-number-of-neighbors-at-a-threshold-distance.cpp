@@ -53,13 +53,13 @@ public:
         for(int i=0; i<n; i++){
             bfs(i,adj,n,distanceThreshold);
         }
-        for(auto i:ans){
-            cout<<"City "<<i.second<<"->"<<i.first<<endl;
-        }
+        // for(auto i:ans){
+        //     cout<<"City "<<i.second<<"->"<<i.first<<endl;
+        // }
         sort(ans.begin(),ans.end(),cmp);
-         for(auto i:ans){
-            cout<<"City "<<i.second<<"->"<<i.first<<endl;
-        }
+        //  for(auto i:ans){
+        //     cout<<"City "<<i.second<<"->"<<i.first<<endl;
+        // }
         return ans[0].second;
     }
 };
