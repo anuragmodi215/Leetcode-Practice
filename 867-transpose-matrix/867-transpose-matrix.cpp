@@ -4,26 +4,13 @@ public:
         
         int n = matrix.size();
         int m = matrix[0].size();
-        if(n==m){
-            for(int i=0; i<n; i++){
-                for(int j=0; j<m; j++){
-                    if(i<j){
-                        swap(matrix[i][j],matrix[j][i]);
-                    }
-                }
-            }
-        return matrix;
-        }
-        else{
-            vector<vector<int>>v(m,vector<int>(n,0));
+        vector<vector<int>>v(m,vector<int>(n,0));
             
-            for(int i=0; i<n; i++){
-                for(int j=0; j<m; j++){
-                    v[j][i] = matrix[i][j];
-                }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                v[j][i] = matrix[i][j];
             }
-            return v;
         }
-        return matrix;
+        return v;
     }
 };
