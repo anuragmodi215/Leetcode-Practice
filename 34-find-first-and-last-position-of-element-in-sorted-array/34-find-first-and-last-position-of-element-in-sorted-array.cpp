@@ -1,47 +1,56 @@
 class Solution {
 public:
-    int lowerBound(vector<int>&nums,int target,int n){
-        int low = 0;
-        int high = nums.size()-1;
+    
+    int firstPosition(vector<int>&nums,int target, int n){
+        int low = 0, high=n-1;
         while(low<=high){
             int mid = low+(high-low)/2;
-            if(nums[mid] == target){
+            if(nums[mid]==target){
                 high = mid-1;
             }
             else if(nums[mid]<target){
                 low = mid+1;
             }
-            else high = mid-1;
+            else if(nums[mid]>target){
+                high=mid-1;
+            }
         }
-        return low;
+       if(low>=0 and low<n and nums[low]==target){
+           return low;
+       }
+        else return -1;
     }
-    int upperBound(vector<int>&nums,int target, int n){
-        int low = 0;
-        int high = nums.size()-1;
+    
+    int lastPosition(vector<int>&nums,int target, int n){
+        int low = 0, high=n-1;
         while(low<=high){
             int mid = low+(high-low)/2;
-            if(nums[mid] == target){
+            if(nums[mid]==target){
                 low = mid+1;
             }
             else if(nums[mid]<target){
                 low = mid+1;
             }
-            else high = mid-1;
+            else if(nums[mid]>target){
+                high=mid-1;
+            }
         }
-        return high;
+        
+        if(high>=0 and high<n and nums[high]==target){
+            return high;
+        }
+        else return -1;
     }
+    
     vector<int> searchRange(vector<int>& nums, int target) {
         int n = nums.size();
-        vector<int>ans(2,-1);
-        if(n<1) return ans;
-        int low = lowerBound(nums,target,n);
-        int high = upperBound(nums,target,n);
-        
-        if(low<n and high>=0 and nums[low]==target and nums[high]==target){
-            ans[0]=low;
-            ans[1]=high;
+        if(n==0) return {-1,-1};
+        int lowerIndex = firstPosition(nums,target,n);
+        int upperIndex =-1;
+        if(lowerIndex>-1){
+              upperIndex = lastPosition(nums,target,n);
         }
-        return ans;
+      return {lowerIndex,upperIndex};
         
     }
 };
