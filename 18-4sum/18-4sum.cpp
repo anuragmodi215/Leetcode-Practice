@@ -1,38 +1,46 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        int n = nums.size();
+        sort(nums.begin(),nums.end());
         vector<vector<int>>ans;
-        if(n<4) return ans;
-        sort(nums.begin(), nums.end());
+        int n = nums.size();
         for(int i=0; i<n; i++){
             if(i>0 and nums[i]==nums[i-1])continue;
-            // a+b+c+d==target
-            // c+d == target-a-b;
-            for(int j=i+1; j<n; j++){
-                if(j>i+1 and nums[j]==nums[j-1]) continue;
-                int newTarget = target-nums[i]-nums[j];
-                int right=n-1,left=j+1;
-                while(left<right){
-                    int sum = nums[left]+nums[right];
-                    
-                    if(sum<newTarget) left++;
-                    else if(sum>newTarget) right--;
-                    else if(sum==newTarget){
-                        ans.push_back({nums[i],nums[j],nums[left],nums[right]});
-                        while(left<right and nums[left]==nums[left+1]){
-                            left++;
+            else{
+                for(int j=i+1; j<n; j++){
+                    if(j>i+1 and nums[j]==nums[j-1])continue;
+                    else{
+                        int k = j+1;
+                        int l = n-1;
+                        int a = nums[i];
+                        int b = nums[j];
+                        int newTarget = target-a-b;
+                        while(k<l){
+                            int c = nums[k];
+                            int d = nums[l];
+                            int sum = c+d;
+                            if(sum==newTarget){
+                                ans.push_back({a,b,c,d});
+                                while(k<l and nums[k]==nums[k+1]){
+                                    k++;
+                                }
+                                k++;
+                                while(k<l and nums[l]==nums[l-1]){
+                                    l--;
+                                }
+                                l--;
+                            }
+                            else if(sum<newTarget){
+                                k++;
+                            }
+                            else if(sum>newTarget){
+                                l--;
+                            }
                         }
-                        left++;
-                        while(right>left and nums[right]==nums[right-1]){
-                            right--;
-                        }
-                        right--;
                     }
                 }
             }
         }
-        
         return ans;
     }
 };
