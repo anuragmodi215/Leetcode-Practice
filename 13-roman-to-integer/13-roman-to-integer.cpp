@@ -12,15 +12,17 @@ public:
         mp['M']=1000;
         
         int n=s.size();
-        for(int i=0; i<n; i++){
+        //int nums=0;
+        for(int i=0;  i<n; i++){
             int currNums = mp[s[i]];
             int j=i-1;
-            while(j>=0 and mp[s[j]]<currNums){
-                currNums-=mp[s[j]];
-                nums-=mp[s[j]];
+            while(j>=0 and mp[s[j]]<mp[s[i]]){
+                currNums -= mp[s[j]];
+                nums -=mp[s[j]];
                 j--;
             }
             nums+=currNums;
+        
         }
         return nums;
     }
