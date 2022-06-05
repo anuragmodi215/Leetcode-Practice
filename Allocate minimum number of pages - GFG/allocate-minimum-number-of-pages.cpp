@@ -12,14 +12,12 @@ class Solution
 {
     public:
     //Function to find minimum number of pages.
-    
-    bool allocationPossible(int a[], int n, int m, int barrier){
-        int pages = 0;
-        int student =1;
-        
+    bool isPossible(int a[], int mid, int n, int m){
+        int student = 1;
+        int pages=0;
         for(int i=0; i<n; i++){
-            if(a[i]>barrier) return false;
-            else if(pages+a[i]>barrier){
+            if(a[i]>mid) return false;
+            else if(pages+a[i]>mid){
                 student++;
                 pages=a[i];
             }
@@ -28,25 +26,26 @@ class Solution
             }
         }
         if(student>m) return false;
-        else return true;
+        return true;
     }
     int findPages(int a[], int n, int m) 
     {
         //code here
-        
-        int low = a[0], high = 0;
-        int res = -1;
-        int mid = 0;
-        for(int i=0; i<n; i++) high+=a[i];
-        while(low<=high){
-            mid = low+(high - low)/2;
-            if(allocationPossible(a,n,m,mid)){
-                res = mid;
-                high = mid-1;
-            }
-            else low = mid+1;
+        int low = 0;
+        int high = 0;
+        for(int i=0; i<n; i++){
+            high+=a[i];
         }
         
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(isPossible(a,mid,n,m)){
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
         return low;
     }
 };
