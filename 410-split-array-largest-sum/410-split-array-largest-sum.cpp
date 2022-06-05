@@ -1,30 +1,31 @@
 class Solution {
 public:
-    int helper(vector<int>& nums, int n, int m, int mid){
-        int cnt = 1;
-        int sum=0;
+    bool isPossible(vector<int>&nums, int mid, int m, int n){
+        int split=1;
+        int sums=0;
         for(int i=0; i<n; i++){
-            sum+=nums[i];
-            if(sum>mid){
-                sum=nums[i];
-                cnt++;
+            if(nums[i]>mid) return false;
+            else if(sums+nums[i]>mid){
+                split++;
+                sums = nums[i];
+            }
+            else{
+                sums+=nums[i];
             }
         }
-        if(cnt>m) return 0;
-        else return 1;
+        if(split>m) return false;
+        return true;
     }
-    int splitArray(vector<int>& nums, int m){
+    int splitArray(vector<int>& nums, int m) {
+        int low = 0;
         int high = 0;
-        int low = INT_MIN; 
         int n = nums.size();
-        for(int i=0; i<n; i++){
-            low = max(nums[i],low);
-            high+=nums[i];
+        for(auto i:nums){
+            high+=i;
         }
-        
         while(low<=high){
-            int mid = (low+high)>>1;
-            if(helper(nums,n,m,mid)){
+            int mid = low+(high-low)/2;
+            if(isPossible(nums,mid,m,n)){
                 high = mid-1;
             }
             else{
