@@ -5,11 +5,11 @@ public:
         int high = nums.size()-1;
         
         while(low<=high){
-            int mid = (low+high)>>1;
-            if(target>nums[mid]){
+            int mid = low+(high-low)/2;
+            if(nums[mid]<target){
                 low = mid+1;
             }
-            else if(target<=nums[mid]){
+            else if(nums[mid]>=target){
                 high = mid-1;
             }
         }
