@@ -15,14 +15,16 @@ public:
         newHead->next = head;
         ListNode * fast = newHead;
         ListNode * slow = newHead;
+        
         for(int i=1; i<=n; i++){
             fast = fast->next;
         }
-        
+        //cout<<fast->val<<endl;
         while(fast->next){
             fast = fast->next;
-            slow = slow->next;
+            slow = slow->next;;
         }
+        //cout<<slow->val;
         slow->next = slow->next->next;
         return newHead->next;
     }
