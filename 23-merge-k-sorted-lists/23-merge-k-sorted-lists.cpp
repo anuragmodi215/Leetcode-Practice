@@ -10,15 +10,16 @@
  */
 class Solution {
 public:
-    ListNode * helper(ListNode * a, ListNode * b){
+    
+    ListNode * merge(ListNode * a, ListNode * b){
         ListNode * first = a;
         ListNode * second = b;
-        ListNode * dummy = new ListNode(-1);
-        ListNode * temp = dummy;
+        ListNode * temp = new ListNode(-1);
+        ListNode * node = temp;
         while(first and second){
-            if(first->val<=second->val){
+            if(first->val<second->val){
                 temp->next = first;
-                first = first->next;
+                first=first->next;
             }
             else{
                 temp->next = second;
@@ -26,16 +27,22 @@ public:
             }
             temp = temp->next;
         }
-        if(first) temp->next = first;
-        else if(second) temp->next = second;
-        return dummy->next;
+        if(first==NULL){
+            temp->next = second;
+        }
+        if(second==NULL){
+            temp->next = first;
+        }
+        return node->next;
     }
+    
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode * dummy = new ListNode(-1);
+        
+        ListNode * newHead = new ListNode(-1);
         int n = lists.size();
         for(int i=0; i<n; i++){
-            dummy->next = helper(dummy->next,lists[i]);
+            newHead->next = merge(newHead->next,lists[i]);
         }
-        return dummy->next;
+        return newHead->next;
     }
 };
