@@ -11,12 +11,16 @@ public:
                 helper(i,candidates,v,n,target-candidates[i],ans);
                 v.pop_back();
             }
+            else{
+                return;
+            }
         }
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<int>v;
         vector<vector<int>>ans;
         int n = candidates.size();
+        sort(candidates.begin(),candidates.end());
         helper(0,candidates,v,n,target,ans);
         return ans;
     }
