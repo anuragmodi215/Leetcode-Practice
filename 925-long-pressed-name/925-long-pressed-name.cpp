@@ -3,7 +3,8 @@ public:
     bool isLongPressedName(string name, string typed) {
         int i=0,j=0;
         while(j<typed.size()){
-            if(name[i]==typed[j]){
+            if(i<name.size() and name[i]==typed[j]){
+                
                 i++;
                 j++;
             }
