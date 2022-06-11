@@ -1,23 +1,19 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
-        int n=nums.size();
-        int even=0;
-        int odd=0;
-        for(int i=0; i<n; i++){
-            if(i%2==0){
-                even+=nums[i];
-                if(odd>even){
-                    even=odd;
-                }
-            }
-            else{
-                odd+=nums[i];
-                if(even>odd){
-                    odd=even;
-                }
-            }
+    int helper(vector<int>&nums, int n,vector<int>&dp){
+        if(n==0) return nums[n];
+        if(dp[n]!=-1) return dp[n];
+        int a = INT_MIN;
+        a = nums[n];
+        if(n-2>=0){
+            a = a+helper(nums,n-2,dp);
         }
-        return max(odd,even);
+        int b = helper(nums,n-1,dp);
+        return dp[n]=max(a,b);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size()-1;
+        vector<int>dp(n+1,-1);
+        return helper(nums,n,dp);
     }
 };
