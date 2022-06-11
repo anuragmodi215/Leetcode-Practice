@@ -1,17 +1,15 @@
 class Solution {
 public:
-    int helper(int n, vector<int>&dp){
-        if(n<0) return 0;
+    int findUniqueStairsCount(int n , vector<int>&dp){
+        if(n==0 or n==1) return 1;
         if(dp[n]!=-1) return dp[n];
-        if(n==1 or n==2) return n;
-        
-        int a = helper(n-1,dp);
-        int b = helper(n-2,dp);
-        
-        return dp[n]=a+b;
+        int oneStep = findUniqueStairsCount(n-1,dp);
+        int twoStep = findUniqueStairsCount(n-2,dp);
+        return dp[n] = oneStep+twoStep;
     }
     int climbStairs(int n) {
         vector<int>dp(n+1,-1);
-        return helper(n,dp);
+        return findUniqueStairsCount(n,dp);
+        //return dp[n];
     }
 };
