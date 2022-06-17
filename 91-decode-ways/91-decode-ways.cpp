@@ -1,25 +1,26 @@
 class Solution {
 public:
-    int helper(string s, int n, int i,vector<int>&dp){
+    int helper(int i, string&s, vector<int>&dp, int n){
+        if(i>=n) return 1;
+        
         if(s[i]=='0') return 0;
-        if(i==n) return 1;
         if(dp[i]!=-1) return dp[i];
-        
-        int x = helper(s,n,i+1,dp);
-        int y=0;
-        if(i+1<n){
-            int nums = stoi(s.substr(i,2));
-            if(nums>0 and nums<=26){
-                y=helper(s,n,i+2,dp); 
-        }            
+        int a = 0,b=0;
+        if(s[i]>='1' and s[i]<='9'){
+            a=helper(i+1,s,dp,n);
         }
-
-        
-        return dp[i] = x+y;
+        if(i+1<n){
+            int twoEl = stoi(s.substr(i,2));
+            cout<<twoEl;
+            if(twoEl>=1 and twoEl<=26){
+                b=helper(i+2,s,dp,n);
+            }
+        }
+        return dp[i] = a+b;
     }
     int numDecodings(string s) {
-        int n=s.size();
+        int n = s.size();
         vector<int>dp(n+1,-1);
-        return helper(s,n,0,dp);
+        return helper(0,s,dp,n);
     }
 };
