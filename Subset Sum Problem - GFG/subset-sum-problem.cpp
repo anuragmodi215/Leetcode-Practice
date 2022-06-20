@@ -9,27 +9,26 @@ using namespace std;
 
 class Solution{   
 public:
-bool subset(vector<int>arr,int n,int sum,vector<vector<int>>&dp)
-    {
-        if(sum==0)
-        return dp[n][sum]=1;
-        if(n==0)
-        return dp[n][sum]=0;
+    bool helper(vector<int>&nums, int index, int target, vector<vector<int>>&dp){
+        if(target==0) return true;
+        if(index==0){
+            if(nums[0]==target) return true;
+            else return false;
+        }
+        if(dp[index][target]!=-1) return dp[index][target];
         
-        
-        if(dp[n][sum]!=-1)
-        return dp[n][sum];
-        
-        if(arr[n-1]<=sum)
-        return dp[n][sum]=subset(arr,n-1,sum-arr[n-1],dp)||subset(arr,n-1,sum,dp);
-        else
-        return dp[n][sum]=subset(arr,n-1,sum,dp);
-        return 0;
+        bool notTake = helper(nums,index-1,target,dp);
+        bool take=0;
+        if(nums[index]<=target){
+            take = helper(nums,index-1,target-nums[index],dp);
+        }
+        return dp[index][target] = take or notTake;
     }
     bool isSubsetSum(vector<int>arr, int sum){
         // code here 
-        vector<vector<int>>dp(101,vector<int>(10001,-1));
-        return subset(arr,arr.size(),sum,dp);
+        int n = arr.size();
+        vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+        return helper(arr,n-1,sum,dp);
     }
 };
 
