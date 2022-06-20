@@ -9,26 +9,25 @@ using namespace std;
 
 class Solution{   
 public:
-    bool helper(vector<int>&nums, int index, int target, vector<vector<int>>&dp){
-        if(target==0) return true;
-        if(index==0){
-            if(nums[0]==target) return true;
-            else return false;
-        }
-        if(dp[index][target]!=-1) return dp[index][target];
-        
-        bool notTake = helper(nums,index-1,target,dp);
-        bool take=0;
-        if(nums[index]<=target){
-            take = helper(nums,index-1,target-nums[index],dp);
-        }
-        return dp[index][target] = take or notTake;
-    }
-    bool isSubsetSum(vector<int>arr, int sum){
+    bool isSubsetSum(vector<int>nums, int sum){
         // code here 
-        int n = arr.size();
-        vector<vector<int>>dp(n,vector<int>(sum+1,-1));
-        return helper(arr,n-1,sum,dp);
+        int n = nums.size();
+        vector<vector<int>>dp(n,vector<int>(sum+1,0));
+        for(int i=0; i<n; i++){
+            dp[i][0] = 1;
+        }
+        dp[0][nums[0]] = 1;
+       for(int i=1; i<n; i++){
+           for(int target=1; target<=sum; target++){
+               int notTake = dp[i-1][target];
+               int take=0;
+               if(nums[i]<=target){
+                   take = dp[i-1][target-nums[i]];
+               }
+               dp[i][target] = notTake or take;
+           }
+       }
+       return dp[n-1][sum];
     }
 };
 
