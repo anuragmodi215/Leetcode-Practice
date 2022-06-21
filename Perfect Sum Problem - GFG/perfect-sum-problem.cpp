@@ -6,29 +6,28 @@ using namespace std;
 class Solution{
 
 	public:
+	long long int mod = 1000000007;
+	int helper(int nums[],int index, int target,vector<vector<int>>&dp){
+	    
+	    if(index==0){
+	        if(target==0 and nums[0]==0) return 2;
+	        if(target==0 or nums[0] == target) return 1;
+	        else return 0;
+	    }
+	    //if(target==0) return 1;
+	    if(dp[index][target]!=-1) return dp[index][target];
+	    int notTake = helper(nums,index-1,target,dp);
+	    int take = 0;
+	    if(nums[index]<=target){
+	        take = helper(nums,index-1,target-nums[index],dp);
+	    }
+	    return dp[index][target] = (take + notTake)%mod;
+	}
 	int perfectSum(int arr[], int n, int sum)
 	{
         // Your code goes here
-        vector<vector<int>>dp(n+1, vector<int>(sum+1,0));
-        for(int i=0; i<n+1; i++){
-            for(int j=0; j<1; j++){
-                dp[i][j]=1;
-            }
-        }
-        
-        long long int mod=1e9+7;
-        //%mod
-        for(int i=1; i<n+1; i++){
-            for(int j=0; j<sum+1; j++){
-                if(arr[i-1]<=j){
-                dp[i][j]=((dp[i-1][j-arr[i-1]])%mod + (dp[i-1][j])%mod)%mod;
-                }
-                else
-                dp[i][j]=(dp[i-1][j])%mod;
-                
-            }
-        }
-        return dp[n][sum];
+        vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+        return helper(arr,n-1,sum,dp);
 	}
 	  
 };
