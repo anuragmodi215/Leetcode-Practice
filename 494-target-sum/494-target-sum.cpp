@@ -1,47 +1,27 @@
 class Solution {
 public:
-    int helper(vector<int>& nums, int n, int sum){
-        cout<<12<<endl;
-        vector<vector<int>>dp(n+1,vector<int>(sum+1,0));
-        for(int i=0; i<n+1; i++){
-            for(int j=0; j<1; j++){
-                dp[i][j]=1;
-            }
+    int helper(vector<int>& nums, int ind, int target, vector<vector<int>>&dp){
+        if(ind==0){
+            if(target==0 and nums[0]==0) return 2;
+            if(target==0 or nums[0]==target) return 1;
+            return 0;
         }
-        
-        for(int i=1; i<n+1; i++){
-            for(int j=0; j<sum+1; j++){
-                if(nums[i-1]<=j){
-                    dp[i][j]=dp[i-1][j-nums[i-1]]+dp[i-1][j];
-                }
-                else{
-                    dp[i][j]=dp[i-1][j];
-                }
-            }
+        if(dp[ind][target]!=-1) return dp[ind][target];
+        int notTake = helper(nums,ind-1,target,dp);
+        int take = 0;
+        if(nums[ind]<=target){
+            take = helper(nums,ind-1,target-nums[ind],dp);
         }
-        return dp[n][sum];
+        return dp[ind][target] = take+notTake;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int arr_sum=0;
-        
-        for(auto i:nums) arr_sum+=i;
-        int sumi=(arr_sum+target)/2;
-        
-      
-        if(arr_sum<abs(target) or (arr_sum+target)%2==1) return 0;
-        return helper(nums,nums.size(),sumi);
+        int n = nums.size();
+        int sum=0;
+        for(auto i:nums)sum+=i;
+        if(sum-target<0) return 0;
+        if((sum-target)%2==1) return 0;
+        target = (sum-target)/2;
+        vector<vector<int>>dp(n,vector<int>(target+1,-1));
+        return helper(nums,n-1,target,dp);
     }
 };
-
-
-/*
-First Condition :
-If the total sum of the array is less than the target sum, then in no any way we can get the target sum.
-Second Condition :
-Basically here we are splitting array into two subarrays. One having + sign and other having - sign. Let the sum of first subarray be S1 and sum of second array be S2.
-S1 + S2 = Sum(sum of the array)
-S1 - S2 = Target
-2S1 = Sum + Target
-S1 = (Sum + Target)/2
-Thus, sum + target should be an even number.
-*/
