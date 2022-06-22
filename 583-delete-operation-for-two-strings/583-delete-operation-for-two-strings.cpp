@@ -1,23 +1,18 @@
 class Solution {
 public:
-    int lcs(string X, string Y,int m,int n){
-        int dp[m+1][n+1];
-        for(int i=0;i<m+1;i++){
-            for(int j=0;j<n+1;j++){
-                if(i==0 || j==0) dp[i][j]=0;
-            }
-        }
+    int lcs(string &s, string&t, int i, int j, vector<vector<int>>&dp){
+        if(i<0 or j<0) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
         
-        for(int i=1;i<m+1;i++){
-            for(int j=1;j<n+1;j++){
-                if(X[i-1]==Y[j-1]) dp[i][j]= 1+dp[i-1][j-1];
-                else dp[i][j] = max(dp[i][j-1], dp[i-1][j]);
-            }
+        if(s[i]==t[j]){
+            return dp[i][j] = 1+lcs(s,t,i-1,j-1,dp);
         }
-        return dp[m][n];
+        return dp[i][j] = max(lcs(s,t,i-1,j,dp),lcs(s,t,i,j-1,dp));
     }
-    int minDistance(string s1, string s2) {
-        int m = s1.size(), n = s2.size();
-        return m+n-2*lcs(s1,s2,m,n) ;
+    int minDistance(string s, string t) {
+        int n = s.size();
+        int m = t.size();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return m+n-2*(lcs(s,t,n-1,m-1,dp));
     }
 };
