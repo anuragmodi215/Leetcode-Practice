@@ -1,40 +1,37 @@
 class Solution {
 public:
-    bool topologicalSort(int node, unordered_map<int,vector<int>>&adj, unordered_map<int,bool>&visited,vector<int>&ans,unordered_map<int,bool>&dfsVisited){
+    bool dfs(int node, unordered_map<int,vector<int>>&adj, vector<int>&visited, vector<int>&dfsVisited,vector<int>&ans){
         visited[node] = 1;
         dfsVisited[node] = 1;
-        for(auto neighbour: adj[node]){
-            if(!visited[neighbour]){
-                bool x = topologicalSort(neighbour,adj,visited,ans,dfsVisited);
-                if(x) return true;
+        for(auto neig: adj[node]){
+            if(!visited[neig]){
+                bool foundCycle = dfs(neig,adj,visited,dfsVisited,ans);
+                if(foundCycle) return true;
             }
-            else if(dfsVisited[neighbour]){
+            else if(dfsVisited[neig]){
                 return true;
             }
         }
-        dfsVisited[node]=0;
+        dfsVisited[node] = 0;
         ans.push_back(node);
         return false;
     }
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         unordered_map<int,vector<int>>adj;
-        unordered_map<int,bool>visited;
-        unordered_map<int,bool>dfsVisited;
+        vector<int>visited(numCourses+1);
+        vector<int>dfsVisited(numCourses+1);
         vector<int>ans;
-        int n = prerequisites.size();
-        for(int i=0; i<n; i++){
+        for(int i=0; i<prerequisites.size(); i++){
             int u = prerequisites[i][0];
             int v = prerequisites[i][1];
             adj[u].push_back(v);
         }
-        
         for(int i=0; i<numCourses; i++){
             if(!visited[i]){
-                bool  x = topologicalSort(i,adj,visited,ans,dfsVisited);
-                if(x) return {};
+                bool foundCycle = dfs(i,adj,visited,dfsVisited,ans);
+                if(foundCycle) return {};
             }
         }
-       
         return ans;
     }
 };
