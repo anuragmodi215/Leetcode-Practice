@@ -1,46 +1,37 @@
 class Solution {
 public:
     string removeKdigits(string nums, int k) {
-        int n=nums.size();
+        int n = nums.size();
+        bool containsZeroOnly=true;
         stack<char>st;
         for(int i=0; i<n; i++){
-            while(!st.empty() and k>0 and st.top()>nums[i]){
+            while(k>0 and !st.empty() and st.top()>nums[i]){
                 st.pop();
                 k--;
             }
             st.push(nums[i]);
         }
+        string ans = "";
         
-        while(k>0){
-            st.pop();
-            k--;
+        while(!st.empty() and k>0){
+            st.pop();k--;
         }
-        bool containsOnlyZeros=true;;
-        string ans="";
+        
         while(!st.empty()){
-            ans=st.top()+ans;
-            if(st.top()!='0'){
-                containsOnlyZeros=false;
+            ans.push_back(st.top());
+            if(st.top()-'0'){
+                containsZeroOnly = false;
             }
             st.pop();
         }
-        if(containsOnlyZeros) return "0";
-        //reverse(ans.begin(),ans.end());
-        int i;
-        int ansLen=ans.size();
-        for(i=0; i<ansLen; i++){
-            if(ans[i]=='0') continue;
-            else break;
+        if(ans.size()==0) return "0";
+        if(containsZeroOnly) return "0";
+        int i= ans.size()-1;
+        while(i>0 and ans[i]=='0'){
+            i--;
         }
-        ans=ans.substr(i);
-        return ans;
+        ans = ans.substr(0,i+1);
+        reverse(ans.begin(),ans.end());
+        return ans.substr(0,i+1);
     }
 };
-
-
-
-
-
-
-
-
