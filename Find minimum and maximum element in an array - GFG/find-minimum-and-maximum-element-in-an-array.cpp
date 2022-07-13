@@ -23,12 +23,16 @@ int main() {
 
 
 pair<long long, long long> getMinMax(long long a[], int n) {
-    pair<long long ,long long>value;
-    value.first = INT_MAX;
-    value.second = INT_MIN;
+    pair<long long, long long>p;
+    p.first = INT_MAX;
+    p.second = INT_MIN;
     for(int i=0; i<n; i++){
-        value.first = min(value.first,a[i]);
-        value.second = max(value.second,a[i]);
+        if(a[i]<p.first){
+            p.first = a[i];
+        }
+        if(a[i]>p.second){
+            p.second = a[i];
+        }
     }
-    return value;
+    return p;
 }
