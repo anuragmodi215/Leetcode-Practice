@@ -10,30 +10,28 @@ class Solution{
     // N : size of the array arr[]
     
     //Function to return length of longest subsequence of consecutive integers.
-    int findLongestConseqSubseq(int arr[], int n)
+    int findLongestConseqSubseq(int nums[], int n)
     {
       //Your code here
-      unordered_map<int,int>mp_215;
+      unordered_map<int,int>mp;
+      int maxi=0;
+      int length=0;
       for(int i=0; i<n; i++){
-          mp_215[arr[i]]++;
+          mp[nums[i]]++;
       }
-      int length_215,maxi_215;
-      length_215=maxi_215=1;
-      //cout<<maxi_215;
       for(int i=0; i<n; i++){
-          int num_215=arr[i];
-          if(mp_215.find(num_215-1)!=mp_215.end()) continue;
-          
+          length=0;
+          if(mp.find(nums[i]-1)!=mp.end())continue;
           else{
-              while(mp_215.find(num_215+1)!=mp_215.end()){
-                  num_215+=1;
-                  length_215+=1;
+              int x=nums[i];
+              while(mp.find(x)!=mp.end()){
+                  x++;
+                  length++;
+                  maxi=max(maxi,length);
               }
           }
-          maxi_215=max(maxi_215,length_215);
-          length_215=1;
       }
-      return maxi_215;
+      return maxi;
     }
 };
 
