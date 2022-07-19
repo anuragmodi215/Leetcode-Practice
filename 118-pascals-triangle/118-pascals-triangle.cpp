@@ -1,19 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int numRows) {
-        vector<vector<int>>v;
-        for(int i=0; i<numRows; i++){
-            vector<int>columns(i+1);
-            columns[0]=1;
-            columns[i]=1;
-            v.push_back(columns);
+    vector<vector<int>> generate(int rows) {
+        vector<vector<int>>dp;
+        for(int i=0; i<rows; i++){
+            dp.push_back(vector<int>(i+1,0));
         }
-
-        for(int i=2; i<numRows; i++){
-            for(int j=1; j<i; j++){
-                v[i][j] = v[i-1][j-1]+v[i-1][j];
+        for(int i=0; i<rows; i++){
+            dp[i][0]=1;
+            dp[i][dp[i].size()-1]=1;
+        }
+        
+        
+        for(int i=2; i<rows; i++){
+            for(int j=1; j<dp[i].size()-1; j++){
+                dp[i][j] = dp[i-1][j]+dp[i-1][j-1];
             }
         }
-        return v;
+        return dp;
     }
 };
