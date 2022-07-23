@@ -10,20 +10,21 @@ public:
         mp['C']=100;
         mp['D']=500;
         mp['M']=1000;
-        
-        int n=s.size();
-        //int nums=0;
-        for(int i=0;  i<n; i++){
-            int currNums = mp[s[i]];
-            int j=i-1;
-            while(j>=0 and mp[s[j]]<mp[s[i]]){
-                currNums -= mp[s[j]];
-                nums -=mp[s[j]];
-                j--;
-            }
-            nums+=currNums;
-        
-        }
-        return nums;
+    
+        int sum = 0;
+        int n = s.size();
+       for(int i=0; i<n; i++){
+           int newNumber = mp[s[i]];
+           int j=i-1;
+           int toRemove=0;
+           while(j>=0 and mp[s[j]]<newNumber){
+               toRemove+=mp[s[j]];
+               sum-=mp[s[j]];
+               j--;
+           }
+           newNumber-=toRemove;
+           sum+=newNumber;
+       }
+        return sum;
     }
 };
