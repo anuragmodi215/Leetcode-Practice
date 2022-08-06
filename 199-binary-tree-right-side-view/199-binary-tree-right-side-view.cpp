@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    map<int,int>mp;
-    vector<int>ans;
-    void solve(TreeNode* root, int level){
+    void helper(TreeNode* root,vector<int>&v, int lv){
         if(!root) return;
-        //if(mp.find(level)==mp.end()) mp[level]= root->val;
-        if(ans.size()<level) ans.push_back(root->val);
-        solve(root->right,level+1);
-        solve(root->left,level+1);
+        if(v.size()<lv){
+            v.push_back(root->val);
+        }
+        helper(root->right,v,lv+1);
+        helper(root->left,v,lv+1);
     }
+    
     vector<int> rightSideView(TreeNode* root) {
-        solve(root,1);
-        for(auto it:mp) ans.push_back(it.second);
-        return ans;
+        vector<int>v;
+        helper(root,v,1);
+        return v;
     }
 };
