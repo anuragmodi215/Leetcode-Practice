@@ -14,12 +14,15 @@ public:
     bool helper(TreeNode* root, TreeNode* min, TreeNode* max){
         if(!root) return true;
         if(min or max){
-            if(min and root->val<=min->val) return false;
-            if(max and root->val>=max->val) return false;
+            if(min){
+                if(root->val<=min->val) return false;
+            }
+            if(max){
+                if(root->val>=max->val) return false;
+            }
         }
-        bool left = helper(root->left, min, root);
-        bool right = helper(root->right, root, max);
-        
+        bool left = helper(root->left,min,root);
+        bool right = helper(root->right,root,max);
         return left and right;
     }
     bool isValidBST(TreeNode* root) {
