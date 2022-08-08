@@ -11,38 +11,28 @@
  */
 class Solution {
 public:
-    TreeNode* last;
-    TreeNode* first;
-    TreeNode* middle;
-    TreeNode* prev;
-    void check(TreeNode* root){
+    TreeNode*first=NULL;
+    TreeNode*middle=NULL;
+    TreeNode*second=NULL;
+    TreeNode*prev=NULL;
+    void helper(TreeNode*root){
         if(!root) return;
-        
-        check(root->left);
-        
+        helper(root->left);
         if(prev and prev->val>root->val){
             if(!first){
                 first = prev;
                 middle = root;
             }
-            else{
-                last = root;
-            }
+            else second = root;
         }
-        
         prev = root;
-        
-        check(root->right);
+        helper(root->right);
     }
     void recoverTree(TreeNode* root) {
-        last = first = middle = prev = NULL;
-        check(root);
-        
-        if(first and last) swap(first->val, last->val);
-        else swap(first->val, middle->val);
+        helper(root);
+        if(first and second){
+            swap(first->val, second->val);
+        }
+        else swap(first->val,middle->val);
     }
 };
-
-
-
-
