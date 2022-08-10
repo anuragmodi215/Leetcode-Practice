@@ -1,34 +1,31 @@
 class Solution {
 public:
-    int left=0;
-    int right = 0;
-    int ans = 0;
-    void helper(int i, int j, string&s){
+    int start=0;
+    int end=0;
+    int len=0;
+    void helper(string&s, int ind,int ind2){
+        int i=ind,j=ind2;
         int n = s.size();
         while(i>=0 and j<n){
             if(s[i]==s[j]){
-                //cout<<s[i];
-                if(ans<j-i+1){
-                    ans = j-i+1;
-                    left = i;
-                    right = j;
+                if(j-i+1>len){
+                    len=j-i+1;
+                    start = i;
+                    end=j;
                 }
                 i--;j++;
             }
             else break;
         }
-        //return ans;
+       // cout<<start<<" "<<len<<endl;
     }
     string longestPalindrome(string s) {
         int n = s.size();
-        int ans = INT_MIN;
-        for(int i=0; i<n-1; i++){
-            helper(i,i,s);
-            helper(i,i+1,s);
+        for(int i=0; i<n; i++){
+            helper(s,i,i);
+            helper(s,i,i+1);
         }
-       
-        // cout<<left<<endl;
-        // cout<<right<<endl;
-        return s.substr(left,right-left+1);
+        //cout<<len;
+        return s.substr(start,len);
     }
 };
