@@ -4,11 +4,13 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
+    let indices = {};
     for(let i=0; i<nums.length; i++){
-        for(let j=i+1; j<nums.length; j++){
-            if(nums[i]+nums[j]===target){
-                return [i,j]
-            }
+        if(indices[target-nums[i]]!== undefined){
+            return[indices[target-nums[i]],i];
         }
+        indices[nums[i]]=i;
+        // console.log(indices[nums[i]]);
     }
+    return [];
 };
